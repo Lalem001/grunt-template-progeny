@@ -1,0 +1,39 @@
+{
+  "name": "grunt-template-progeny",
+  "version": "0.0.0",
+  "author": {
+    "name": "Luis Aleman",
+    "url": "https://github.com/Lalem001"
+  },
+  "bugs": {
+    "url": "https://github.com/Lalem001/grunt-template-progeny/issues"
+  },
+  "dependencies": {
+    "progeny": "^0.5.2"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "istanbul": "^0.3.6",
+    "jasmine": "^2.2.1",
+    "jscs": "^1.11.3",
+    "jshint": "^2.6.0"
+  },
+  "homepage": "https://github.com/Lalem001/grunt-template-progeny",
+  "keywords": [
+    "grunt",
+    "gruntplugin",
+    "template",
+    "helper",
+    "progeny"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lalem001/grunt-template-progeny.git"
+  },
+  "scripts": {
+    "pretest": "jscs . && jshint .",
+    "test": "istanbul cover jasmine"
+  }
+}
