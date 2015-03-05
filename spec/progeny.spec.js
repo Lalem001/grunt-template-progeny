@@ -22,43 +22,37 @@ describe('grunt-template-progeny', function () {
 		expect(reference).toBe(progeny);
 	});
 
-	it('should run progeny with LESS files correctly', function () {
-		var result;
+	it('should handle plain paths', function () {
+		var expected = '{' + [fixturePaths.b, fixturePaths.c] + ',}',
+			result;
 
 		expect(function () {
-			result = progeny(fixturePaths.a);
+			result = progeny(fixturePaths.b);
 		}).not.toThrow();
 
-		expect(result).toEqual([
-			fixturePaths.b,
-			fixturePaths.c
-		]);
+		expect(result).toEqual(expected);
 	});
 
-	it('should process path templates', function () {
-		var result;
+	it('should process paths that are, or contain, grunt templates', function () {
+		var expected = '{' + [fixturePaths.a, fixturePaths.b, fixturePaths.c] + ',}',
+			result;
 
 		expect(function () {
 			result = progeny('<%= path %>');
 		}).not.toThrow();
 
-		expect(result).toEqual([
-			fixturePaths.b,
-			fixturePaths.c
-		]);
+		expect(result).toEqual(expected);
 	});
 
 	it('should function correctly when executed from a grunt template', function () {
 		var template = '<%= grunt.template.progeny(path) %>',
+			expected = '{' + [fixturePaths.a, fixturePaths.b, fixturePaths.c] + ',}',
 			result;
 
 		expect(function () {
 			result = grunt.template.process(template);
 		}).not.toThrow();
 
-		expect(result).toEqual([
-			fixturePaths.b,
-			fixturePaths.c
-		].join(','));
+		expect(result).toEqual(expected);
 	});
 });
