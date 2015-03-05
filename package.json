@@ -24,7 +24,13 @@
     "gruntplugin",
     "template",
     "helper",
-    "progeny"
+    "progeny",
+    "css",
+    "less",
+    "sass",
+    "scss",
+    "stylus",
+    "jade"
   ],
   "license": "MIT",
   "main": "index.js",
