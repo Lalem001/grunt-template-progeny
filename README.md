@@ -1,6 +1,7 @@
 # grunt-template-progeny
 
-> Grunt template helper to recursively find dependencies of style and template files.
+> Grunt Template Helper: Progeny  
+> Get the style/template dependency paths
 
 ## Installation
 
@@ -13,29 +14,28 @@ $ npm install --save-dev grunt-template-progeny
 ```js
 // Gruntfile.js
 module.exports = function(grunt) {
-	// require it and pass in the grunt instance
-	require('grunt-template-progeny')(grunt);
+	// require it and pass in the grunt instance.
+	// config is optional
+	require('grunt-template-progeny')(grunt, config);
 
 	grunt.initConfig();
 };
 ```
 
+For more information about custom configuration see [Progeny's Documentation](https://github.com/es128/progeny#configuration).
+
 ## File Support
 
-Progeny currently has support for `jade`, `stylus`, `less`, `sass`/`scss`, and `css`. 
+Progeny currently has support for `jade`, `stylus`, `less`, `sass`/`scss`, and `css` files.
 
 ## API Reference
 
-### grunt.template.progeny(path)
+### grunt.template.progeny(path) ⇒ <code>string</code>
+**Returns**: <code>string</code> - glob ready list of paths  
 
-**Params**
-
-- path `string` - Path to source file
-
-**Returns**
-
-- String[] - Paths to dependencies
-  - **Note**: When used in a template, the array will joined into a comma separated list.
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Source path or grunt template |
 
 ## Usage
 
@@ -46,13 +46,33 @@ It will watch the given source file and all of its dependencies.
 {
 	less: {
 		options: { reload:true }
-		files: ['path/to/source.less', '{<%= grunt.template.progeny("path/to/source.less") %>}']
+		files: ['<%= grunt.template.progeny("path/to/source.less") %>']
 		tasks: ['less']
 	}
 }
 ```
 
-> **Important Note**:  
-The braces surrounding the template delimiters `<% %>` are required here.
-They allow glob to understand the comma delimited list of files that progeny returns.
-See [Globbing patterns](http://gruntjs.com/configuring-tasks#globbing-patterns).
+The following is a sample `gruntfile.js` configuration segment
+You may also use template variables:
+
+```js
+// config
+{
+	less: {
+		main: {
+			src: "path/to/source.less",
+			dest: "path/to/result.css"
+		}
+	},
+	watch: {
+		less: {
+			options: { reload:true }
+			files: ['<%= grunt.template.progeny(less.main.src) %>']
+			tasks: ['less']
+		}
+	}
+}
+```
+
+## License
+MIT © [Luis Aleman](http://github.com/Lalem001)
