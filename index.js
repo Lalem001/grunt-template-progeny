@@ -4,19 +4,35 @@
  * Copyright 2014 Luis Aleman <https://github.com/Lalem001/>
  */
 (function (module) {
-	module.exports = function (grunt) {
-		var progeny = require('progeny').Sync({rootPath: '.'});
+	module.exports = function (grunt, config) {
+		var progeny = require('progeny').Sync(config);
 
 		/**
-		 * Facade to run Progeny on a specified path
-		 * @param {string} path Source path (can be a grunt template)
-		 * @returns {Array} Array of dependency paths
+		 * Grunt Template Helper: Progeny
+		 * Get the dependencies of the specified path in a glob ready list of paths
+		 *
+		 * @function "grunt.template.progeny"
+		 * @param {string} path Source path or grunt template
+		 * @returns {string} glob ready list of paths
+		 * @example
+		 * ```js
+		 * {
+		 *   src: '<%= grunt.template.progeny("path/to/source.less") %>'
+		 * }
+		 * ```
+		 * @example
+		 * ```js
+		 * {
+		 *   // using source path from another task
+		 *   src: '<%= grunt.template.progeny(less.main.src) %>'
+		 * }
+		 * ```
 		 */
-		function progenyFacade (path) {
-			return progeny(grunt.template.process(path));
-		}
+		grunt.template.progeny = function (path) {
+			path = grunt.template.process(path);
+			return '{' + progeny(path) + ',}';
+		};
 
-		grunt.template.progeny = progenyFacade;
-		return progenyFacade;
+		return grunt.template.progeny;
 	};
 })(module);
