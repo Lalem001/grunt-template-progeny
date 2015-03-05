@@ -30,7 +30,7 @@
 		 */
 		grunt.template.progeny = function (path) {
 			path = grunt.template.process(path);
-			return '{' + progeny(path) + ',}';
+			return '{' + [path].concat(progeny(path)) + ',}';
 		};
 
 		return grunt.template.progeny;
