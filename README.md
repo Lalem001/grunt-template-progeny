@@ -1,7 +1,7 @@
 # grunt-template-progeny
 
 > Grunt Template Helper: Progeny  
-> Get the style/template dependency paths
+> Get style/template dependency paths
 
 ## Installation
 
